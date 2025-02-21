@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Online Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background: #f4f4f4;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #222;
+            color: white;
+            padding: 15px 50px;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .nav-container {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+        .nav {
+            display: flex;
+            gap: 25px;
+        }
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            padding: 8px 16px;
+            transition: background 0.3s, border-radius 0.3s;
+        }
+        .nav a:hover {
+            background: #444;
+            border-radius: 5px;
+        }
+        .cart-icon {
+            font-size: 24px;
+            cursor: pointer;
+            position: relative;
+            padding: 8px;
+            transition: background 0.3s, border-radius 0.3s;
+        }
+        .cart-icon:hover {
+            background: #444;
+            border-radius: 5px;
+        }
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background: red;
+            color: white;
+            font-size: 14px;
+            border-radius: 50%;
+            padding: 3px 7px;
+        }
+        .products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px;
+        }
+        .product {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            background: #fff;
+            transition: transform 0.3s;
+        }
+        .product:hover {
+            transform: scale(1.05);
+        }
+        .product img {
+            width: 100%;
+            max-height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .cart-button {
+            display: block;
+            margin-top: 15px;
+            padding: 12px;
+            background: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .cart-button:hover {
+            background: #218838;
+        }
+        .cart {
+            margin: 20px;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            max-width: 600px;
+            margin: auto;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        .filter {
+            margin: 20px 0;
+            text-align: center;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .hidden { display: none; }
+    </style>
+    <script>
+        function filterProducts() {
+            var category = document.getElementById("category").value;
+            var products = document.querySelectorAll(".product");
+            products.forEach(function(product) {
+                if (category === "all" || product.getAttribute("data-category") === category) {
+                    product.classList.remove("hidden");
+                } else {
+                    product.classList.add("hidden");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <div>Just buy!!!!</div>
+        <div class="nav-container">
+            <div class="nav">
+                <a href="home.html">Home</a>
+                <a href="login.html">Login</a>
+                <a href="about.html">About Us</a>
+            </div>
+            <div class="cart-icon" onclick="toggleCart()"><a href="cart.html">🛒</a><span id="cart-count" class="cart-count">0</span></div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="filter">
+            <label for="category">Filter by Category: </label>
+            <select id="category" onchange="filterProducts()">
+                <option value="all">All</option>
+                <option value="Shirts">Shirts</option>
+                <option value="Pants">Pants</option>
+                <option value="Jackets">Jackets</option>
+            </select>
+        </div>
+    <div class="products">
+        <div class="product" data-category="Shirts">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSbN_Av8MPW-I_tFR0H08MHK4Y3NNZzF80xV1fi6cs6U3IuDbyZhrkX6_5tHYUvI1oQQHnyQKbHobyuWlOGanPTyPnLrtX0RDVWKPs79FIAPh911N5tKClNOw&usqp=CAE" alt="Product 1">
+            <h3>Brown Mustard and Black Men and Boys Relaxed fit Striped Full Sleeve Cotton Multicolored Men Relaxed Shirt</h3>
+            <p> ₹1200.00</p>
+            <button class="cart-button" onclick="addToCart('Product 1', '₹1200.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Shirts">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSkm204Q5g7Ld2EA2LOYIje5HAA0O9zGlQVt6c2mzBxuJNOCIRzZvf34gLvYl6ZQ97eunU6vmE172RmpeuN-3GUlcIX_6CJwALKCbHpGewT&usqp=CAE" alt="Product 2">
+            <h3>	
+                Roadster Men Grey Solid Regular Fit Pure Cotton Casual Shirt </h3>
+            <p> ₹2000.00</p>
+            <button class="cart-button" onclick="addToCart('Product 2', '₹2000.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Shirts">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSsiFLOHf2ZIO5thBw10NGUAPSh1m6KuOxxqzKMFeck2ejAQP5cnmUe76TgzUMo4TeBrVE5fsfIoax0NTj-96gs39d6gT-J0t0pFmDcWGU8&usqp=CAE" alt="Product 3">
+            <h3>	
+                HIGHLANDER Men White Slim Fit Casual Shirt</h3>
+            <p> ₹1800.00</p>
+            <button class="cart-button" onclick="addToCart('Product 3', '₹1800.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Shirts">
+            <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSgSsKGOKY_F4EIZUpRHtXvUjLU4Ocgp3U_YULp9Cw5CBLEKoPP5y1RlgpwSPkRoYxACcDj1jeO9euS5JHPQB_GCmrSp3IjdKyKl3SvktGo&usqp=CAE" alt="Product 4">
+            <h3>	
+                The Souled Store Men Self Design Casual Blue Shirt</h3>
+            <p> ₹2200.00</p>
+            <button class="cart-button" onclick="addToCart('Product 4', '₹2200.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Shirts">
+            <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcR0YOtnwBl1fpxht7sbbixmhp3CeN4-UhuSveek8CfE8QUy9_RmUr31Bs0qBOXkcoNZnT1eOIVlCVkOv7RjKvhwM0twXwCfU2PZM2utpiLViqsCed3SLzTXPQ&usqp=CAE" alt="Product 5">
+            <h3>	
+                Men - Black Regular Fit Oxford shirt</h3>
+            <p> ₹2300.00</p>
+            <button class="cart-button" onclick="addToCart('Product 5', '₹2300.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Shirts">
+            <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRmh9sJooHqCPlyKfG4eoi32w9uKvzAXLK2tABLQOK3ylbLPd84tBpaXe7yZ9u3PMMkdaDqC7VDMMTjstQtIvETLtxd8dNxYuakTj8D1alc&usqp=CAE" alt="Product 6">
+            <h3>	
+                HIGHLANDER Men Textured Dobby Striped Oversized Shirt</h3>
+            <p> ₹3300.00</p>
+            <button class="cart-button" onclick="addToCart('Product 6', '₹3300.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Shirts">
+            <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcR2j1xh_lXpniIycy8lCekmj8vGkSQc5FfmozPsfBjSeMFrxc8qmuNx2YizUF_7m3RSU5y3kaKymUuvnCgFM6JoJUgDbQCegkqsBjA1NoCTn-9L_ovkC6cZ&usqp=CAE" alt="Product 7">
+            <h3>	
+                The Souled Store Men Solid Casual Brown Shirt</h3>
+            <p> ₹1300.00</p>
+            <button class="cart-button" onclick="addToCart('Product 7', '₹1300.00')">Add to Cart</button>
+        </div>
+        
+        <div class="product" data-category="Pants">
+            <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcQTso2fBOOnQgURrgBebphqiUavGZ4FfdGBAsXRfu9mbY0ay9bU1O9tqBF8H42DFyKWNLAiCyRMggnu_0zHiJIxSJ9aHakiRPe8NRL8fHU&usqp=CAE" alt="Product 8">
+            <h3>	
+                Men's Stylish Regular Fit Cargo Pant</h3>
+            <p> ₹2200.00</p>
+            <button class="cart-button" onclick="addToCart('Product 8', '₹2200.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Pants">
+            <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcR0UJU2beu-DYczNbOLJavuQYMCJYfzmIaYGUOld2wQ33X_XPE4N80878HW3k5L_7HM4nmt5Qnk9mjSu77O35VVPUZejRtMD1DIhK9sMsE&usqp=CAE" alt="Product 9">
+            <h3>	
+                Van Heusen Slim Fit Men Black Trousers</h3>
+            <p> ₹1100.00</p>
+            <button class="cart-button" onclick="addToCart('Product 9', '₹1100.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Pants">
+            <img src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcSlQpfkW9z0EK2x9TYjiSnFR5NI5GbNKhjOEx0YqKnWMAub33TZyRuu7syVGSrvnxvrIB8xXIubevb188wdXe2CqLwzPFicD6Xo8P2Yj6QwEOJIU1M7a7vo&usqp=CAE" alt="Product 10">
+            <h3>	
+                Highlander Solid Men Green Track Pants</h3>
+            <p> ₹1000.00</p>
+            <button class="cart-button" onclick="addToCart('Product 10', '₹1000.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Pants">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcTFohFqgIkNpsQRRDAgYm1Z1_sGPuM2AmjiQWuowz0nf7FJjlJIaqtyaB-zBmALmaYvp35ZAY1kscoRtj8ClJZv4XMG3pRGFZDIDDa8gdaK&usqp=CAE" alt="Product 11">
+            <h3>	
+                Lymio Men Cargo</h3>
+            <p> ₹1600.00</p>
+            <button class="cart-button" onclick="addToCart('Product 11', '₹1600.00')">Add to Cart</button>
+        </div>
+        
+        <div class="product" data-category="Pants">
+            <img src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcR7HcERWHqFeW9hzCFV1wxwRAUIRQCWkBAYXKph79b_NARZMHbFREyqf7KMp4yFOeK3A51PTWXgHJETIQ-yHR6KehAFPo3m0SRXG1bjxJU&usqp=CAE" alt="Product 12">
+            <h3>	
+                HIGHLANDER Men Tapered Fit Cotton Cargo Trousers</h3>
+            <p> ₹2700.00</p>
+            <button class="cart-button" onclick="addToCart('Product 12', '₹2700.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Pants">
+            <img src="https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcSd9tmspEj5-MhOnCMMgFcE9Dfh0jHBXjx47KPiL_1KxkeHI2hAvA-9yZbICPFkqAb0GYUgG8ppHTfAVI5gdaUVJt30cY0UoevXjkG9569V&usqp=CAE" alt="Product 13">
+            <h3>	
+                Bilitry Men Joggers Chino Cargo Pants</h3>
+            <p> ₹1200.00</p>
+            <button class="cart-button" onclick="addToCart('Product 13', '₹1200.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Pants">
+            <img src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRlToZwdNxmHP5RhhJfjfNbjmyPvfysE0YaKPZD9lsa95nOvtFiyWq506SQW-_oOg16l-Kglz9Lo93KEXJCFoYEePGr43CLEEn16TnuCAYe&usqp=CAE" alt="Product 14">
+            <h3>	
+                HIGHLANDER Men Loose Fit Mid-Rise Cotton Jeans</h3>
+            <p> ₹2000.00</p>
+            <button class="cart-button" onclick="addToCart('Product 14', '₹2000.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Jackets">
+            <img src="https://static.nbastore.in/resized/500X500/794/nba-los-angeles-lakers-letterman-jacket-purple-purple-674ea051658dc.jpg" alt="Product 15">
+            <h3>LAKERS LETTERMAN JACKET</h3>
+            <p> ₹1800.00</p>
+            <button class="cart-button" onclick="addToCart('Product 15', '₹1800.00')">Add to Cart</button>
+        </div>
+        
+        <div class="product" data-category="Jackets">
+            <img src="https://m.media-amazon.com/images/I/61rKBzwwPZL._SY741_.jpg" alt="Product 16">
+            <h3>Lymio Men Polyester Jacket</h3>
+            <p> ₹2200.00</p>
+            <button class="cart-button" onclick="addToCart('Product 16', '₹2200.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Jackets">
+            <img src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/12111272/2020/10/15/59ebe61b-cb28-4572-8e5d-78b12cf584351602757705076-Roadster-Men-Jackets-2991602757698531-1.jpg
+            " alt="Product 17">
+            <h3>Men Charcoal Grey Solid Corduroy Jacket</h3>
+            <p> ₹2000.00</p>
+            <button class="cart-button" onclick="addToCart('Product 17', '₹2000.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Jackets">
+            <img src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/14306312/2021/7/21/7af7df0e-2f49-4f1a-b0ad-5f0d5f31ab531626867899168-Roadster-Men-Jackets-4681626867898483-1.jpg" alt="Product 18">
+            <h3>Men Grey Solid Bomber Jacket</h3>
+            <p> ₹900.00</p>
+            <button class="cart-button" onclick="addToCart('Product 18', '₹900.00')">Add to Cart</button>
+        </div>
+
+        <div class="product" data-category="Jackets">
+            <img src="https://cdn.shopify.com/s/files/1/0646/0211/2255/files/new_14_09_2024_d2ccfc85-9134-4c77-8aa8-31e7c0e21eb5_2B_2B-_2B.jpg?v=1739253341&width=2160" alt="Product 19">
+            <h3>boys blue fur lined denim jackets</h3>
+            <p> ₹800.00</p>
+            <button class="cart-button" onclick="addToCart('Product 19', '₹800.00')">Add to Cart</button>
+        </div>
+        
+        <div class="product" data-category="Jackets">
+            <img src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/26130150/2023/11/29/c208c973-87ef-4844-81c7-9ee664c7f4251701256265224CampusSutraMenTanSuedeWindcheaterOutdoorBikerJacket1.jpg" alt="Product 20">
+            <h3>Windcheater Jacket</h3>
+            <p> ₹3200.00</p>
+            <button class="cart-button" onclick="addToCart('Product 20', '32200.00')">Add to Cart</button>
+        </div>
+    </div>
+    
+    <div class="cart" id="cart" style="display: none;">
+        <h2>Shopping Cart</h2>
+        <div id="cart-items"></div>
+    </div>
+    
+    <script>
+        let cartCount = 0;
+        function addToCart(name, price) {
+            cartCount++;
+            document.getElementById("cart-count").innerText = cartCount;
+            const cartItems = document.getElementById("cart-items");
+            const item = document.createElement("div");
+            item.classList.add("cart-item");
+            item.innerHTML = `<span>${name}</span> <span>${price}</span>`;
+            cartItems.appendChild(item);
+        }
+        function toggleCart() {
+            const cart = document.getElementById("cart");
+            cart.style.display = cart.style.display === "none" ? "block" : "none";
+        }
+    </script>
+</body>
+</html>
